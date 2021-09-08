@@ -1,0 +1,164 @@
+
+mysql> create database OnlineFoodOrdering;
+Query OK, 1 row affected (0.28 sec)
+mysql> use OnlineFoodOrdering;
+Database changed
+mysql> create table Restaurant(RestaurantID int Auto_Increment primary key,RestaurantName varchar(20),RestaurantAddress varchar(20),ContactNo bigint);
+Query OK, 0 rows affected (2.15 sec)
+
+mysql> insert into restaurant values(10,"Apporuva","cbe",779864657);
+Query OK, 1 row affected (0.27 sec)
+
+
+mysql> insert into restaurant values(11,"Saravan","palani",764689939);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into restaurant values(12,"BBQ","dindugal",9934267949);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into restaurant values(13,"sq","Sivakasi",7498655456);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into restaurant values(14,"thapa","Chennai",94267678);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into restaurant values(15,"CNA","madurai",992342322);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select *from restaurant;
++--------------+----------------+-------------------+------------+
+| RestaurantID | RestaurantName | RestaurantAddress | ContactNo  |
++--------------+----------------+-------------------+------------+
+|           10 | Apporuva       | cbe               |  779864657 |
+|           11 | Saravan        | palani            |  764689939 |
+|           12 | BBQ            | dindugal          | 9934267949 |
+|           13 | sq             | Sivakasi          | 7498655456 |
+|           14 | thapa          | Chennai           |   94267678 |
+|           15 | CNA            | madurai           |  992342322 |
++--------------+----------------+-------------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> create table MenuItem(MenuId int Auto_Increment Primary key,RestaurantID int,foreign key(restaurantID) references Restaurant(RestaurantID),MenuName varchar(20),MenuCategory varchar(20),MenuPrice int,MenuDes varchar(20));
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> insert into MenuItem values(1,10," Pure Veg","Breakfast",70,"onion roast");
+Query OK, 1 row affected (0.36 sec)
+
+mysql> insert into MenuItem values(2,14,"Non-Veg","Lunch",170,"chicken biriyani");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into MenuItem values(3,11,"Non-Veg","Dinner",100,"Parotta");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into MenuItem values(4,15,"Veg","Snacks",60,"panipuri");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into MenuItem values(5,13,"Veg","Breakfast",60,"Chappathi");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select *from Menuitem;
++--------+--------------+-----------+--------------+-----------+------------------+
+| MenuId | RestaurantID | MenuName  | MenuCategory | MenuPrice | MenuDes          |
++--------+--------------+-----------+--------------+-----------+------------------+
+|      1 |           10 |  Pure Veg | Breakfast    |        70 | onion roast      |
+|      2 |           14 | Non-Veg   | Lunch        |       170 | chicken biriyani |
+|      3 |           11 | Non-Veg   | Dinner       |       100 | Parotta          |
+|      4 |           15 | Veg       | Snacks       |        60 | panipuri         |
+|      5 |           13 | Veg       | Breakfast    |        60 | Chappathi        |
++--------+--------------+-----------+--------------+-----------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table Customers(CustomerMailID varchar(20) Primary key,CustomerName varchar(20),CustomerCity varchar(10),CustomerGender varchar(1) check (CustomerGender in ('F','M','T')),CustomerPassword varchar(50));
+Query OK, 0 rows affected (0.84 sec)
+
+mysql> insert into customers values('priya@gmail.com','priya' , 'palani', 'F','Pri1509@');
+Query OK, 1 row affected (0.47 sec)
+
+mysql> insert into customers values('shaa@shaagmail.com','shaa','namakal','F','123edt#');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into customers values('rk@rkgmail.com','rk','chennai','M','rk89y6');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customers values('kutta@gmail.com','kutta','dindugal','F','kut6754#');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customers values('nesa@gmail.com','nesa','madurai','F','nes123$');
+Query OK, 1 row affected (0.09 sec)
+
+mysql>select *from Customers;
++--------------------+--------------+--------------+----------------+------------------+
+| CustomerMailID     | CustomerName | CustomerCity | CustomerGender | CustomerPassword |
++--------------------+--------------+--------------+----------------+------------------+
+| kutta@gmail.com    | kutta        | dindugal     | F              | kut6754#         |
+| nesa@gmail.com     | nesa         | madurai      | F              | nes123$          |
+| priya@gmail.com    | priya        | palani       | F              | Pri1509@         |
+| rk@rkgmail.com     | rk           | chennai      | M              | rk89y6           |
+| shaa@shaagmail.com | shaa         | namakal      | F              | 123edt#          |
++--------------------+--------------+--------------+----------------+------------------+
+5 rows in set (0.05 sec)
+
+mysql> create table Orders(OrderID int Auto_Increment Primary key,CustomerMailID varchar(20),foreign key(CustomerMailID) references Customers(CustomerMailID),OrderDate date,DeliveryAddress varchar(50),OrderStatus varchar(20) check(orderstatus in ('Delivered','Cancelled')));
+Query OK, 0 rows affected (2.15 sec)
+
+
+mysql> insert into orders values(56,'priya@gmail.com','2021-03-12','palani','Cancelled');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into orders values(105,'kutta@gmail.com','2021-05-09','dindugal','Cancelled');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into orders values(45,'shaa@shaagmail.com','2021-05-30','Namakal','Delivered');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into orders values(67,'nesa@gmail.com','2021-07-21','madurai','Delivered');
+Query OK, 1 row affected (0.14 sec)
+
+
+mysql> insert into orders values(57,'kutta@gmail.com','2021-05-09','dindugal','Cancelled');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select *from Orders;
++---------+--------------------+------------+-----------------+-------------+
+| OrderID | CustomerMailID     | OrderDate  | DeliveryAddress | OrderStatus |
++---------+--------------------+------------+-----------------+-------------+
+|      45 | shaa@shaagmail.com | 2021-05-30 | Namakal         | Delivered   |
+|      56 | priya@gmail.com    | 2021-03-12 | palani          | Cancelled   |
+|      57 | kutta@gmail.com    | 2021-05-09 | dindugal        | Cancelled   |
+|      67 | nesa@gmail.com     | 2021-07-21 | madurai         | Delivered   |
+|     105 | kutta@gmail.com    | 2021-05-09 | dindugal        | Cancelled   |
++---------+--------------------+------------+-----------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> create table OrderMenu(OrderID int,foreign key(OrderID) references Orders(OrderID),MenuID int ,foreign key(MenuID) references RMenuItems(MenuID),MenuQty int,MenuPrice int);
+insert into OrderMenu values(56,2,14,170);
+insert into OrderMenu values(45,3,11,100);
+insert into OrderMenu values(67,5,13,60);
+insert into OrderMenu values(54,4,15,60);
+insert into OrderMenu values(105,1,10,70);
+
+REPORTS:
+1.mysql> select * from Restaurant where RestaurantAddress="Palani";
++--------------+----------------+-------------------+-----------+
+| RestaurantID | RestaurantName | RestaurantAddress | ContactNo |
++--------------+----------------+-------------------+-----------+
+|           11 | Saravan        | palani            | 764689939 |
++--------------+----------------+-------------------+-----------+
+2.select a.RestaurantID,a.RestaurantName,b.MenuID,b.MenuName,b.MenuPrice from Restaurant a,MenuItem b where a.RestaurantID=b.RestaurantID;
++--------------+----------------+--------+-----------+-----------+
+| RestaurantID | RestaurantName | MenuID | MenuName  | MenuPrice |
++--------------+----------------+--------+-----------+-----------+
+|           10 | Apporuva       |      1 |  Pure Veg |        70 |
+|           14 | thapa          |      2 | Non-Veg   |       170 |
+|           11 | Saravan        |      3 | Non-Veg   |       100 |
+|           15 | CNA            |      4 | Veg       |        60 |
+|           13 | sq             |      5 | Veg       |        60 |
++--------------+----------------+--------+-----------+-----------+
+3.select a.RestaurantID,a.RestaurantName,b.MenuID,b.MenuName,b.MenuPrice from Restaurant a,MenuItem b where a.RestaurantID=b.RestaurantID and RestaurantAddress="Chennai";
++--------------+----------------+--------+----------+-----------+
+| RestaurantID | RestaurantName | MenuID | MenuName | MenuPrice |
++--------------+----------------+--------+----------+-----------+
+|           14 | thapa          |      2 | Non-Veg  |       170 |
++--------------+----------------+--------+----------+-----------+
+
+

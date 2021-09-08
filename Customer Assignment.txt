@@ -1,0 +1,139 @@
+create database Customer1;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> use Customer1;
+Database changed
+mysql> create table Customer1(Customerid int AUTO_INCREMENT primary key,CustomerName varchar(20),CustomerCity varchar(20),CustomerAddress varchar(50),CustomerMobNo int unique,PANNO varchar(20) unique,CustomerPassword varchar(20)); AUTO_INCREMENT=10;
+Query OK, 0 rows affected (2.01 sec)
+mysql> insert into Customer1 values(10,'priya','palani','pk nagar',87675788,'MST23TYDN', 2543779);
+Query OK, 1 row affected (1.66 sec)
+
+mysql> insert into Customer1 values(12,'Kutta','Dindugal','VCR',9874535,'BYHK87YU', 9876342);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Customer1 values(13,'nesa','hosur','pk street',87645799,'Y76GFTCV', 3123876);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into Customer1 values(14,'mow','salem','skr area',74853903,'MYST453UI', 'YU76545');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Customer1 values(15,'PRIYANKA','DHARAMPURI','sks',98324165,'NGF56ER34', 150988);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into Customer1 values(16,'madhu','namakal','SV colony',876457890,'ASER6754I', 'P56487E');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Customer1 values(17,'mv','cbe','sk street',97645391,'YUT675RFG', '6759YA');
+Query OK, 1 row affected (0.26 sec)
+
+mysql> insert into Customer1 values(18,'kaviya','chennai','PR nagar',7865436,'YTURF143', 7685643);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select *from Customer1;
++------------+--------------+--------------+-----------------+---------------+-----------+------------------+
+| Customerid | CustomerName | CustomerCity | CustomerAddress | CustomerMobNo | PANNO     | CustomerPassword |
++------------+--------------+--------------+-----------------+---------------+-----------+------------------+
+|         10 | priya        | palani       | pk nagar        |      87675788 | MST23TYDN | 2543779          |
+|         11 | shaa         | namakal      | crosscut road   |       9766234 | YEISD65RE | P12394TR         |
+|         12 | Kutta        | Dindugal     | VCR             |       9874535 | BYHK87YU  | 9876342          |
+|         13 | nesa         | hosur        | pk street       |      87645799 | Y76GFTCV  | 3123876          |
+|         14 | mow          | salem        | skr area        |      74853903 | MYST453UI | YU76545          |
+|         15 | PRIYANKA     | DHARAMPURI   | sks             |      98324165 | NGF56ER34 | 150988           |
+|         16 | madhu        | namakal      | SV colony       |     876457890 | ASER6754I | P56487E          |
+|         17 | mv           | cbe          | sk street       |      97645391 | YUT675RFG | 6759YA           |
+|         18 | kaviya       | chennai      | PR nagar        |       7865436 | YTURF143  | 7685643          |
++------------+--------------+--------------+-----------------+---------------+-----------+------------------+
+9 rows in set (0.00 sec)
+
+mysql> create database AccountInfo;
+mysql> use AccountInfo;
+Database changed
+
+
+
+mysql> create table AccountInfo(AccountID int AUTO_INCREMENT primary key,CustomerID int,foreign key(CustomerID) references  Customer1(CustomerID),AccountType varchar(20),AccountBalance bigint,AccountOpenDate date,AccountStatus Varchar(10) not null CHECK(AccountStatus in ('Open','Closed','Blocked')));
+Query OK, 0 rows affected (2.40 sec)
+
+mysql> insert into AccountInfo values(345586421,10," Savings Account",400000,'2021-03-21',"Open");
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into AccountInfo values(345586425,11,"Salary Account",15000,'2021-01-23',"Closed");
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into AccountInfo values(345586423,12,"Current Account",25000,'2021-04-04',"open");
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into AccountInfo values(345586422,13,"Savings  Account",50000,'2020-05-10',"open");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into AccountInfo values(345586424,14,"Salary Account",40000,'2021-01-11',"open");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into AccountInfo values(546789123,15,"Savings  Account",90000,'2020-05-12',"Closed");
+Query OK, 1 row affected (0.32 sec)
+
+mysql> insert into AccountInfo values(546789143,16,"Current Account",30000,'2020-09-12',"Open");
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into AccountInfo values(546789134,17,"Salary Account",34000,'2017-09-15',"Open");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into AccountInfo values(546789145,18,"Savings Account",39000,'2020-08-20',"Open");
+Query OK, 1 row affected (0.08 sec)
+
+
+mysql> select *from AccountInfo;
++-----------+------------+------------------+----------------+-----------------+---------------+
+| AccountID | CustomerID | AccountType      | AccountBalance | AccountOpenDate | AccountStatus |
++-----------+------------+------------------+----------------+-----------------+---------------+
+| 345586421 |         10 |  Savings Account |         400000 | 2021-03-21      | Open          |
+| 345586422 |         13 | Savings  Account |          50000 | 2020-05-10      | open          |
+| 345586423 |         12 | Current Account  |          25000 | 2021-04-04      | open          |
+| 345586424 |         14 | Salary Account   |          40000 | 2021-01-11      | open          |
+| 345586425 |         11 | Salary Account   |          15000 | 2021-01-23      | Closed        |
+| 546789123 |         15 | Savings  Account |          90000 | 2020-05-12      | Closed        |
+| 546789134 |         17 | Salary Account   |          34000 | 2017-09-15      | Open          |
+| 546789143 |         16 | Current Account  |          30000 | 2020-09-12      | Open          |
+| 546789145 |         18 | Savings Account  |          39000 | 2020-08-20      | Open          |
++-----------+------------+------------------+----------------+-----------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql>create database TransactionInfo;
+mysql>use TransactionInfo;
+
+create table TransactionInfo(TransactionID int AUTO_INCREMENT primary key,AccountID int,foreign key(AccountID) references AccountInfo(AccountID),TransactionType varchar(20) default 'Not Done',Amount bigint check(Amount>0),TransactionDate date);
+insert into TransactionInfo values(10,345586421,"Debit",2000,'2021-05-21');
+insert into TransactionInfo values(11,345586425,"Credit",1000,'2021-05-09');
+insert into TransactionInfo values(12,345586423,"Credit",1550,'2021-06-22');
+insert into TransactionInfo values(13,345586422,"Debit",800,'2021-04-09');
+insert into TransactionInfo values(14,345586424,"Debit",1010,'2021-09-23');
+insert into TransactionInfo values(15,546789123,"Credit",1015,'2021-08-12');
+insert into TransactionInfo values(16,546789143,"Debit",10000,'2021-08-21');
+insert into TransactionInfo values(17,546789134,"Credit",1000,'2021-06-24');
+insert into TransactionInfo values(18,546789145,"Debit",12000,'2021-07-21')
+
+Reports:
+1.select * from TransactionInfo where AccountID= 345586421 order by TransactionDate desc limit 5;
+2.select * from TransactionInfo where AccountID= 345586421 and TransactionDate between '2021-09-01' and '2021-12-01';
+3.select * from AccountInfo where Customer1ID=12;
+4.select a.Customer1ID,a.Customer1Name,a.Customer1Address,a.Customer1MobileNo,b.AccountID,b.AccountBalance from Customer1Info a,Accountinfo b where a.Customer1ID=b.Customer1ID;
+5.select a.AccountID,a.AccountBalance,b.TransactionID,b.Amount,b.TransactionType from AccountInfo a,TransactionInfo b where a.AccountID=b.AccountID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
